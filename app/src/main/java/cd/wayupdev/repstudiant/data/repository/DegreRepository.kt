@@ -1,0 +1,23 @@
+package cd.wayupdev.repstudiant.data.repository
+
+import cd.wayupdev.repstudiant.data.dao.DegreDao
+import cd.wayupdev.repstudiant.data.entity.Degre
+import cd.wayupdev.repstudiant.data.entity.EtudiantDegre
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+
+class DegreRepository @Inject constructor(
+    private val degreDao: DegreDao
+) {
+    suspend fun insertData(degre: Degre){
+        degreDao.insertData(degre)
+    }
+
+    fun findAll(): Flow<List<Degre>>{
+        return degreDao.findAll()
+    }
+
+    fun findDegreAndEtudiant() : Flow<List<EtudiantDegre>>{
+        return degreDao.findDegreAndEtudiant()
+    }
+}
