@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.Toast
 import cd.wayupdev.repstudiant.R
 import cd.wayupdev.repstudiant.ui.home.HomeActivity
+import cd.wayupdev.repstudiant.utils.toast
 import kotlinx.android.synthetic.main.activity_add_etudaint.*
 
 class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -24,6 +25,44 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     }
 
+    private fun onEnregistrerBtnClicked(){
+        btnAdd.setOnClickListener {
+            val nom = etNom.text.toString()
+            val prenom = etPrenom.text.toString()
+            val bio = etBio.text.toString()
+            val dateNaissance = etDateNaissance.text.toString()
+            val dateenregistrement = etDateEnregistrement.text.toString()
+            val desc = etDesc.text.toString()
+
+            if(nom.isEmpty()){
+                toast("champ nom ne doit pas etre vide")
+            }else if (prenom.isEmpty()){
+                toast("champ prenom ne doit pas etre vide")
+            }else if (bio.isEmpty()){
+                toast("champ bio ne doit pas etre vide")
+            }else if (dateNaissance.isEmpty()){
+                toast("champ dateNaissance ne doit pas etre vide")
+            }else if (dateenregistrement.isEmpty()){
+                toast("champ dateenregistrement ne doit pas etre vide")
+            }else if (desc.isEmpty()){
+                toast("champ decription ne doit pas etre vide")
+            }else{
+                addStudent(nom, prenom, bio, dateNaissance, dateenregistrement, desc)
+            }
+        }
+    }
+
+    private fun addStudent(
+        nom : String,
+        prenom : String,
+        bio : String,
+        dateNaissance : String,
+        dateenregistrement : String,
+        desc : String
+    ){
+
+    }
+
     private fun spinerFuction(spinner: Spinner, res : Int){
         ArrayAdapter.createFromResource(this, res, android.R.layout.simple_spinner_item).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -32,8 +71,8 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         spinner.onItemSelectedListener = this
     }
 
-    private fun backHandel(){
-        btnBack.setOnClickListener{
+    private fun backHandel() {
+        btnBack.setOnClickListener {
             val intent = Intent(this@AddEtudaintActivity, HomeActivity::class.java)
             startActivity(intent)
             finish()
