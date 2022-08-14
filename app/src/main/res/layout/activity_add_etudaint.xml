@@ -7,18 +7,20 @@
     tools:context=".ui.addEtudiant.AddEtudaintActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:clickable="true"
         android:src="@drawable/ic_back"
-        app:layout_constraintEnd_toStartOf="@+id/btnBack"
+        app:layout_constraintEnd_toStartOf="@+id/screenTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:focusable="true" />
 
     <TextView
-        android:id="@+id/btnBack"
+        android:id="@+id/screenTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
@@ -27,7 +29,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/btnBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -36,7 +38,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack">
+        app:layout_constraintTop_toBottomOf="@+id/screenTitle">
 
         <LinearLayout
             android:layout_width="match_parent"
