@@ -5,7 +5,8 @@
       <map>
         <entry key="app/src/main/res/drawable/ic_add.xml" value="0.33" />
         <entry key="app/src/main/res/font/font.xml" value="0.38177083333333334" />
-        <entry key="app/src/main/res/layout/activity_add_etudaint.xml" value="0.335" />
+        <entry key="app/src/main/res/layout-land/activity_add_etudaint.xml" value="0.2985008818342152" />
+        <entry key="app/src/main/res/layout/activity_add_etudaint.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.20729166666666668" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.10416666666666667" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.35260416666666666" />
