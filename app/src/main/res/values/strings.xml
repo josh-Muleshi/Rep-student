@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">RepStudiant</string>
+
+    <string-array name="degre">
+        <item>Preparatoire</item>
+        <item>L1</item>
+        <item>L2</item>
+        <item>L3</item>
+    </string-array>
+
+    <string-array name="filiere">
+        <item>SI</item>
+        <item>MSI</item>
+        <item>DGN</item>
+        <item>AS</item>
+        <item>TLC</item>
+        <item>NULL</item>
+    </string-array>
 </resources>
