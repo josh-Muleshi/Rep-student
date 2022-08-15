@@ -1,6 +1,7 @@
 package cd.wayupdev.repstudiant.data.repository
 
 import cd.wayupdev.repstudiant.data.dao.FiliereDao
+import cd.wayupdev.repstudiant.data.entity.Degre
 import cd.wayupdev.repstudiant.data.entity.DegreFiliere
 import cd.wayupdev.repstudiant.data.entity.Filiere
 import kotlinx.coroutines.flow.Flow
@@ -15,6 +16,10 @@ class FiliereRepository @Inject constructor(
 
     fun findAll(): Flow<List<Filiere>>{
         return filiereDao.findAll()
+    }
+
+    fun searchOne(searchQuery: String): Flow<Filiere>{
+        return filiereDao.searchOne(searchQuery)
     }
 
     fun findFiliereAndDegre() : Flow<List<DegreFiliere>>{

@@ -8,17 +8,37 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.activity.viewModels
 import cd.wayupdev.repstudiant.R
+import cd.wayupdev.repstudiant.data.entity.Degre
+import cd.wayupdev.repstudiant.data.entity.Etudiant
+import cd.wayupdev.repstudiant.data.entity.Filiere
+import cd.wayupdev.repstudiant.ui.addEtudiant.business.AddEtudiantViewModel
 import cd.wayupdev.repstudiant.ui.home.HomeActivity
+import cd.wayupdev.repstudiant.utils.returnFormat
 import cd.wayupdev.repstudiant.utils.toast
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_etudaint.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.sql.Date
 
+@AndroidEntryPoint
 class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
+
+    lateinit var etudiant: Etudiant
+    lateinit var filiereObj: Filiere
+    lateinit var degreObj: Degre
+    private val addEtudiantViewModel: AddEtudiantViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_etudaint)
 
         backHandel()
+        onEnregistrerBtnClicked()
 
         spinerFuction(DegreSpinner, R.array.degre)
         spinerFuction(FiliereSpinner, R.array.filiere)
@@ -31,7 +51,6 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             val prenom = etPrenom.text.toString()
             val bio = etBio.text.toString()
             val dateNaissance = etDateNaissance.text.toString()
-            val dateenregistrement = etDateEnregistrement.text.toString()
             val desc = etDesc.text.toString()
 
             if(nom.isEmpty()){
@@ -42,33 +61,50 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
                 toast("champ bio ne doit pas etre vide")
             }else if (dateNaissance.isEmpty()){
                 toast("champ dateNaissance ne doit pas etre vide")
-            }else if (dateenregistrement.isEmpty()){
-                toast("champ dateenregistrement ne doit pas etre vide")
             }else if (desc.isEmpty()){
                 toast("champ decription ne doit pas etre vide")
             }else{
-                addStudent(nom, prenom, bio, dateNaissance, dateenregistrement, desc)
+                val filiere: String?
+                val degre = spinerFuction(DegreSpinner, R.array.degre)
+                if (degre != "Preparatoire" && degre != "L1"){
+                    filiere = spinerFuction(FiliereSpinner, R.array.filiere)
+                }else{
+                    filiere = null
+                }
+                addStudent(nom, prenom, bio, dateNaissance, degre, filiere, desc)
             }
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun addStudent(
         nom : String,
         prenom : String,
         bio : String,
         dateNaissance : String,
-        dateenregistrement : String,
+        degre : String,
+        filiere : String?,
         desc : String
     ){
+        filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
+        degreObj = Degre(class_degre = degre, filiere_degre = filiere)
+        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, degre_etudiant = degre, date_enregistrement = Date(System.currentTimeMillis()).toString())
 
+        GlobalScope.launch(Dispatchers.Main){
+            addEtudiantViewModel.insertData(filiereObj)
+            addEtudiantViewModel.insertData(degreObj)
+            addEtudiantViewModel.insertData(etudiant)
+        }
     }
 
-    private fun spinerFuction(spinner: Spinner, res : Int){
+    private fun spinerFuction(spinner: Spinner, res : Int) : String{
         ArrayAdapter.createFromResource(this, res, android.R.layout.simple_spinner_item).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
         spinner.onItemSelectedListener = this
+        spinner.selectedItemId
+        return  spinner.selectedItem.toString()
     }
 
     private fun backHandel() {
@@ -79,9 +115,8 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         }
     }
 
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, p3: Long) {
-//        val text = parent?.getItemAtPosition(position).toString()
-//        Toast.makeText(parent?.context, text, Toast.LENGTH_SHORT).show()
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        parent?.getItemAtPosition(position).toString()
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

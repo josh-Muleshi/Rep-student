@@ -2,14 +2,14 @@ package cd.wayupdev.repstudiant.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 @Entity
 data class Filiere (
+    val nom_filiere: String?,
+    val Description: String?,
+    val date_creation: String?
+){
     @PrimaryKey(autoGenerate = true)
-    val id_filiere: Int,
-    val nom_filiere: String,
-    val Description: String,
-    val date_creation: Date
-)
+    var id_filiere: Int = 0
+}
 

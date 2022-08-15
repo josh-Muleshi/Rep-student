@@ -11,3 +11,7 @@ fun Context.toast(message: String, duration: Int = Toast.LENGTH_SHORT) {
 fun Context.toast(@StringRes resId: Int, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, this.resources.getText(resId), duration).show()
 }
+
+fun String.returnFormat(): String{
+    return this
+}

@@ -6,9 +6,10 @@ import java.util.*
 
 @Entity
 data class Degre (
+    val class_degre: String?,
+    val filiere_degre: String?
+){
     @PrimaryKey(autoGenerate = true)
-    val id_degre: Int,
-    val class_degre: String,
-    val filiere_degre: Int
-)
+    var id_degre: Int = 0
+}
 
