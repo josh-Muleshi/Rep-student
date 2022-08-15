@@ -1,6 +1,7 @@
 package cd.wayupdev.repstudiant.ui.addEtudiant
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -34,14 +35,13 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         setContentView(R.layout.activity_add_etudaint)
 
         backHandel()
-        onEnregistrerBtnClicked()
+        val filiere = spinerFuction(FiliereSpinner, R.array.filiere)
+        val degre = spinerFuction(DegreSpinner, R.array.degre)
 
-        spinerFuction(DegreSpinner, R.array.degre)
-        spinerFuction(FiliereSpinner, R.array.filiere)
-
+        onEnregistrerBtnClicked(filiere, degre)
     }
 
-    private fun onEnregistrerBtnClicked(){
+    private fun onEnregistrerBtnClicked(filiere: String, degre: String){
         btnAdd.setOnClickListener {
             val nom = etNom.text.toString()
             val prenom = etPrenom.text.toString()
@@ -60,8 +60,6 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             }else if (desc.isEmpty()){
                 toast("champ decription ne doit pas etre vide")
             }else{
-                val filiere = spinerFuction(FiliereSpinner, R.array.filiere)
-                val degre = spinerFuction(DegreSpinner, R.array.degre)
                 addStudent(nom, prenom, bio, dateNaissance, degre, filiere, desc)
                 finish()
             }
@@ -78,6 +76,7 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         filiere : String?,
         desc : String
     ){
+        Log.e("main", filiere + degre)
         filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
         degreObj = Degre(class_degre = degre, filiere_degre = filiereObj.id_filiere)
         etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant = degre,degreObj.id_degre)
