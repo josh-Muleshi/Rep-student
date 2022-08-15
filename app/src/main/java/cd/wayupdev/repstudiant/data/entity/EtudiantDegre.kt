@@ -6,7 +6,7 @@ import androidx.room.Relation
 data class EtudiantDegre (
     @Embedded val degre: Degre,
     @Relation(
-        parentColumn = "class_degre",
+        parentColumn = "id_degre",
         entityColumn = "degre_etudiant"
     )
     val etudiant: Etudiant

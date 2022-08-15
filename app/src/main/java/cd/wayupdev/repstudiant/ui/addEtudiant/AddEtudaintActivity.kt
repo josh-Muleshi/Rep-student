@@ -1,21 +1,17 @@
 package cd.wayupdev.repstudiant.ui.addEtudiant
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import cd.wayupdev.repstudiant.R
 import cd.wayupdev.repstudiant.data.entity.Degre
 import cd.wayupdev.repstudiant.data.entity.Etudiant
 import cd.wayupdev.repstudiant.data.entity.Filiere
 import cd.wayupdev.repstudiant.ui.addEtudiant.business.AddEtudiantViewModel
-import cd.wayupdev.repstudiant.ui.home.HomeActivity
-import cd.wayupdev.repstudiant.utils.returnFormat
 import cd.wayupdev.repstudiant.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_add_etudaint.*
@@ -64,14 +60,10 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             }else if (desc.isEmpty()){
                 toast("champ decription ne doit pas etre vide")
             }else{
-                val filiere: String?
+                val filiere = spinerFuction(FiliereSpinner, R.array.filiere)
                 val degre = spinerFuction(DegreSpinner, R.array.degre)
-                if (degre != "Preparatoire" && degre != "L1"){
-                    filiere = spinerFuction(FiliereSpinner, R.array.filiere)
-                }else{
-                    filiere = null
-                }
                 addStudent(nom, prenom, bio, dateNaissance, degre, filiere, desc)
+                finish()
             }
         }
     }
@@ -87,8 +79,8 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         desc : String
     ){
         filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
-        degreObj = Degre(class_degre = degre, filiere_degre = filiere)
-        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, degre_etudiant = degre, date_enregistrement = Date(System.currentTimeMillis()).toString())
+        degreObj = Degre(class_degre = degre, filiere_degre = filiereObj.id_filiere)
+        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant = degre,degreObj.id_degre)
 
         GlobalScope.launch(Dispatchers.Main){
             addEtudiantViewModel.insertData(filiereObj)
@@ -109,8 +101,6 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
 
     private fun backHandel() {
         btnBack.setOnClickListener {
-            val intent = Intent(this@AddEtudaintActivity, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
     }

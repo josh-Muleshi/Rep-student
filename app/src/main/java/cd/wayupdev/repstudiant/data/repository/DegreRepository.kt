@@ -1,9 +1,7 @@
 package cd.wayupdev.repstudiant.data.repository
 
-import androidx.room.Query
 import cd.wayupdev.repstudiant.data.dao.DegreDao
 import cd.wayupdev.repstudiant.data.entity.Degre
-import cd.wayupdev.repstudiant.data.entity.Etudiant
 import cd.wayupdev.repstudiant.data.entity.EtudiantDegre
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

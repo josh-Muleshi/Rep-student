@@ -2,7 +2,7 @@
     <string name="app_name">RepStudiant</string>
 
     <string-array name="degre">
-        <item>Preparatoire</item>
+        <item>Prep</item>
         <item>L1</item>
         <item>L2</item>
         <item>L3</item>

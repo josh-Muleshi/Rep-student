@@ -1,12 +1,12 @@
 package cd.wayupdev.repstudiant.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import cd.wayupdev.repstudiant.R
 import cd.wayupdev.repstudiant.data.entity.Etudiant
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.my_row.view.*
 
 class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
@@ -23,9 +23,10 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         )
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.etNoms.text = oldData[position].nom_etudiant
-        holder.itemView.etPrenoms.text = oldData[position].prenom_etudiant
+        holder.itemView.picture.text = oldData[position].promotion_etudiant
+        holder.itemView.fullName.text = oldData[position].nom_etudiant + " " + oldData[position].prenom_etudiant
         holder.itemView.etBiographie.text = oldData[position].biographie
     }
 
