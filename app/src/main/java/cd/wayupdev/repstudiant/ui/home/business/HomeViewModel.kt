@@ -12,7 +12,13 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val etudiantRepository : EtudiantRepository
 ) : ViewModel() {
-    val findAll = etudiantRepository.findAll().asLiveData()
+
+    val count = etudiantRepository.count().asLiveData()
+
+    fun findAll(isAcs: Boolean): LiveData<List<Etudiant>>{
+        return etudiantRepository.findAll(isAcs).asLiveData()
+    }
+
 
     fun findByid(etudiantID : Int): LiveData<Etudiant>{
         return etudiantRepository.findByid(etudiantID).asLiveData()

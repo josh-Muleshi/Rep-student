@@ -12,12 +12,16 @@ class EtudiantRepository @Inject constructor(
         etudiantDao.insertData(etudiant)
     }
 
-    fun findAll(): Flow<List<Etudiant>>{
-        return etudiantDao.findAll()
+    fun findAll(isAsc: Boolean): Flow<List<Etudiant>>{
+        return etudiantDao.findAll(isAsc)
     }
 
     fun findByid(etudiantID : Int): Flow<Etudiant>{
         return etudiantDao.findByid(etudiantID)
+    }
+
+    fun count(): Flow<Int>{
+        return etudiantDao.count()
     }
 
     fun searchDatabase(searchQuery: String): Flow<List<Etudiant>>{
