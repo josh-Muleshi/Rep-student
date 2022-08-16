@@ -1,11 +1,10 @@
 package cd.wayupdev.repstudiant.ui.home
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import cd.wayupdev.repstudiant.R
 import cd.wayupdev.repstudiant.adapter.MyAdapter
