@@ -28,6 +28,9 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     lateinit var etudiant: Etudiant
     lateinit var filiereObj: Filiere
     lateinit var degreObj: Degre
+    private var id_fd: Int? = null
+    private var filiere: String? = null
+    private var degre: String? = null
     private val addEtudiantViewModel: AddEtudiantViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,13 +38,13 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         setContentView(R.layout.activity_add_etudaint)
 
         backHandel()
-        val filiere = spinerFuction(FiliereSpinner, R.array.filiere)
-        val degre = spinerFuction(DegreSpinner, R.array.degre)
+        spinerFuction(FiliereSpinner, R.array.filiere)
+        spinerFuction(DegreSpinner, R.array.degre)
 
-        onEnregistrerBtnClicked(filiere, degre)
+        onEnregistrerBtnClicked()
     }
 
-    private fun onEnregistrerBtnClicked(filiere: String, degre: String){
+    private fun onEnregistrerBtnClicked(){
         btnAdd.setOnClickListener {
             val nom = etNom.text.toString()
             val prenom = etPrenom.text.toString()
@@ -72,14 +75,14 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         prenom : String,
         bio : String,
         dateNaissance : String,
-        degre : String,
+        degre : String?,
         filiere : String?,
         desc : String
     ){
         Log.e("main", filiere + degre)
         filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
-        degreObj = Degre(class_degre = degre, filiere_degre = filiereObj.id_filiere)
-        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant = degre,degreObj.id_degre)
+        degreObj = Degre(class_degre = degre, filiere_degre =id_fd)
+        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant = degre, id_fd)
 
         GlobalScope.launch(Dispatchers.Main){
             addEtudiantViewModel.insertData(filiereObj)
@@ -88,14 +91,12 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         }
     }
 
-    private fun spinerFuction(spinner: Spinner, res : Int) : String{
+    private fun spinerFuction(spinner: Spinner, res : Int) {
         ArrayAdapter.createFromResource(this, res, android.R.layout.simple_spinner_item).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
         spinner.onItemSelectedListener = this
-        spinner.selectedItemId
-        return  spinner.selectedItem.toString()
     }
 
     private fun backHandel() {
@@ -105,7 +106,13 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        parent?.getItemAtPosition(position).toString()
+        if (parent.toString() == "FiliereSpinner"){
+            id_fd = position
+            filiere = parent?.getItemAtPosition(position).toString()
+        }else{
+            id_fd = position
+            degre = parent?.getItemAtPosition(position).toString()
+        }
     }
 
     override fun onNothingSelected(p0: AdapterView<*>?) {

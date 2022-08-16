@@ -11,6 +11,7 @@ import cd.wayupdev.repstudiant.R
 import cd.wayupdev.repstudiant.adapter.MyAdapter
 import cd.wayupdev.repstudiant.ui.addEtudiant.AddEtudaintActivity
 import cd.wayupdev.repstudiant.ui.home.business.HomeViewModel
+import cd.wayupdev.repstudiant.ui.search.SearchActivity
 import cd.wayupdev.repstudiant.utils.toast
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_home.*
@@ -27,6 +28,7 @@ class HomeActivity : AppCompatActivity() {
 
         countAll()
         filter()
+        onSearchBarClicked()
 
         recyclerview.layoutManager = LinearLayoutManager(this)
         recyclerview.adapter = myAdapter
@@ -55,9 +57,17 @@ class HomeActivity : AppCompatActivity() {
             homeViewModel.count.observe(this){
                 if (it > 1){
                     toast("il y'a $it Etudiants dans la db", Toast.LENGTH_LONG)
+                }else {
+                    toast("il y'a $it Etudiant dans la db", Toast.LENGTH_LONG)
                 }
-                toast("il y'a $it Etudiant dans la db", Toast.LENGTH_LONG)
             }
+        }
+    }
+
+    private fun onSearchBarClicked(){
+        search_bar.setOnClickListener {
+            val intent = Intent(this@HomeActivity, SearchActivity::class.java)
+            startActivity(intent)
         }
     }
 }
