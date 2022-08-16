@@ -23,11 +23,15 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         )
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
         holder.itemView.picture.text = oldData[position].promotion_etudiant
         holder.itemView.fullName.text = oldData[position].nom_etudiant + " " + oldData[position].prenom_etudiant
         holder.itemView.etBiographie.text = oldData[position].biographie
+
+        if (holder.itemView.picture.text == "L1") {
+            holder.itemView.picture.setBackgroundResource(R.color.gray)
+        }else { holder.itemView.picture.setBackgroundResource(R.color.green) }
     }
 
     override fun getItemCount(): Int {

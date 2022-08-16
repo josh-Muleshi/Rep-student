@@ -62,6 +62,9 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             }else if (desc.isEmpty()){
                 toast("champ decription ne doit pas etre vide")
             }else{
+                if (degre == "Prep" || degre == "L1"){
+                    filiere = "NULL"
+                }
                 addStudent(nom, prenom, bio, dateNaissance, degre, filiere, desc)
                 finish()
             }
@@ -78,10 +81,9 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         filiere : String?,
         desc : String
     ){
-        Log.e("main", filiere + degre)
         filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
-        degreObj = Degre(class_degre = degre, filiere_degre =id_fd)
-        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant = degre, id_fd)
+        degreObj = Degre(class_degre = degre, filiere_degre = id_fd)
+        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant =  degre, id_fd)
 
         GlobalScope.launch(Dispatchers.Main){
             addEtudiantViewModel.insertData(filiereObj)
@@ -99,7 +101,7 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        if (parent.toString() == "FiliereSpinner"){
+        if (parent?.id.toString() == "2131296763"){
             id_fd = position
             filiere = parent?.getItemAtPosition(position).toString()
         }else{
