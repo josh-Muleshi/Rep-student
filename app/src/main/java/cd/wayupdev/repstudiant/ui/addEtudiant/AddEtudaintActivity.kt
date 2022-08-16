@@ -37,7 +37,6 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_etudaint)
 
-        backHandel()
         spinerFuction(FiliereSpinner, R.array.filiere)
         spinerFuction(DegreSpinner, R.array.degre)
 
@@ -97,12 +96,6 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
             spinner.adapter = adapter
         }
         spinner.onItemSelectedListener = this
-    }
-
-    private fun backHandel() {
-        btnBack.setOnClickListener {
-            finish()
-        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
