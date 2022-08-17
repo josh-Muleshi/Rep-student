@@ -82,14 +82,13 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         desc : String
     ){
         filiereObj = Filiere(nom_filiere = filiere, Description = desc, date_creation = Date(System.currentTimeMillis()).toString())
-        degreObj = Degre(class_degre = degre, filiere_degre = id_fd)
-        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant =  degre, id_fd)
+        degreObj = Degre(class_degre = degre, filiere_degre = filiereObj.id_filiere)
+        etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant =  degre, degre_etudiant = degreObj.id_degre)
 
-        GlobalScope.launch(Dispatchers.Main){
-            addEtudiantViewModel.insertData(filiereObj)
-            addEtudiantViewModel.insertData(degreObj)
-            addEtudiantViewModel.insertData(etudiant)
-        }
+        addEtudiantViewModel.insertData(filiereObj)
+        addEtudiantViewModel.insertData(degreObj)
+        addEtudiantViewModel.insertData(etudiant)
+
     }
 
     private fun spinerFuction(spinner: Spinner, res : Int) {

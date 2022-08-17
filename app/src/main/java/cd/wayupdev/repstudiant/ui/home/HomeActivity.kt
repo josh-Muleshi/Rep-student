@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun filter(){
         var c = true
         filter_icon.setOnClickListener {

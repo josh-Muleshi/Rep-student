@@ -12,7 +12,6 @@ data class Etudiant(
     val date_enregistrement: String?,
     val promotion_etudiant: String?,
     var degre_etudiant: Int?
-
 ){
     @PrimaryKey(autoGenerate = true)
     var id_etudiant: Int = 0
