@@ -30,8 +30,13 @@ class MyAdapter : RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         holder.itemView.etBiographie.text = oldData[position].biographie
 
         if (holder.itemView.picture.text == "L1") {
-            holder.itemView.picture.setBackgroundResource(R.color.gray)
-        }else { holder.itemView.picture.setBackgroundResource(R.color.green) }
+            holder.itemView.picture.setBackgroundResource(R.color.yelow)
+        }else if (holder.itemView.picture.text == "L2"){
+            holder.itemView.picture.setBackgroundResource(R.color.red)
+        }else if (holder.itemView.picture.text == "L3"){
+            holder.itemView.picture.setBackgroundResource(R.color.blue)
+        }
+        else { holder.itemView.picture.setBackgroundResource(R.color.gree) }
     }
 
     override fun getItemCount(): Int {
