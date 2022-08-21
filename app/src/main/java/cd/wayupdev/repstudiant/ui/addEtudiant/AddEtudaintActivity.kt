@@ -85,9 +85,7 @@ class AddEtudaintActivity : AppCompatActivity(), AdapterView.OnItemSelectedListe
         degreObj = Degre(class_degre = degre, filiere_degre = filiereObj.id_filiere)
         etudiant = Etudiant(nom_etudiant = nom, prenom_etudiant = prenom, biographie = bio, date_naissance = dateNaissance, date_enregistrement = Date(System.currentTimeMillis()).toString(), promotion_etudiant =  degre, degre_etudiant = degreObj.id_degre)
 
-        addEtudiantViewModel.insertData(filiereObj)
-        addEtudiantViewModel.insertData(degreObj)
-        addEtudiantViewModel.insertData(etudiant)
+        addEtudiantViewModel.insertData(filiere = filiereObj, degre = degreObj, etudiant = etudiant)
 
     }
 

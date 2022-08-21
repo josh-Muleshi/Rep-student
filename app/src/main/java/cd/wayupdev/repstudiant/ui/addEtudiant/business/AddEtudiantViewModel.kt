@@ -23,21 +23,13 @@ class AddEtudiantViewModel @Inject constructor(
     private val degreRepository: DegreRepository,
     private val etudiantRepository: EtudiantRepository
 ) : ViewModel() {
-    fun insertData(etudiant: Etudiant){
-        viewModelScope.launch(Dispatchers.IO){
-            etudiantRepository.insertData(etudiant)
-        }
-    }
 
-    fun insertData(degre: Degre){
+    fun insertData(degre: Degre,etudiant: Etudiant,filiere: Filiere){
         viewModelScope.launch(Dispatchers.IO){
+            val filierer = filiereRepository.insertData(filiere)
+            val mDegre = degre.copy(filierer.toString())
             degreRepository.insertData(degre)
-        }
-    }
-
-    fun insertData(filiere: Filiere){
-        viewModelScope.launch(Dispatchers.IO){
-            filiereRepository.insertData(filiere)
+            etudiantRepository.insertData(etudiant)
         }
     }
 
